@@ -1,0 +1,29 @@
+import cv2
+
+# xml 필터 파일 로드
+face_cascade = cv2.CascadeClassifier('./xml/face.xml')
+eye_cascade = cv2.CascadeClassifier('./xml/eye.xml')
+
+# gray스케일 이미지로 변경
+img = cv2.imread('human.jpg')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# 이미지에서 얼굴 검출
+faces = face_cascade.detectMultiScale(gray)
+
+# 얼굴 위치에 대한 좌표 정보 가져오기
+for (x, y, w, h) in faces:
+    # 원본 이미지에 얼굴 위치 표시
+    cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2) # 사진, 시작 좌표, 끝나는 좌표, 색(255,0,0)=blue, 선의 두께
+    # 눈 식별 (얼굴 안) => ROI(Region of Interest = 관심 영역)
+    roi_color = img[y:y+h, x:x+w]
+    roi_gray = gray[y:y+h, x:x+w]
+
+    eyes = eye_cascade.detectMultiScale(roi_gray)
+
+    for(ex, ey, ew, eh) in eyes:
+        cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (0, 0, 255),)
+
+cv2.imshow('img', img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()

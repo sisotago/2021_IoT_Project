@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+{# Jinja Flask 내장 Template 엔진, 중괄호#은 주석 #}
+<body>
+    {% if title %}{# 중괄호%는 로직 처리(로직 삽입) #}
+        <p>{{ title }}</p>  {# 변수나 간단한 수식은 중괄호 두 개 #}
+    {% endif %}
+    <a href="/first">Go First</a>
+    <a href="/second">Go Second</a>                                                                                                                           
+</body>
+</html>
